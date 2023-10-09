@@ -87,7 +87,11 @@ func (m MySQL) Query(tableName string) [][]string {
 			case string:
 				stringValues[i] = data
 			default:
-				stringValues[i] = fmt.Sprint(data)
+				if data == nil {
+					stringValues[i] = ""
+				} else {
+					stringValues[i] = fmt.Sprint(data)
+				}
 			}
 		}
 
