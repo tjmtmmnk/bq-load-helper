@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:8.1.0
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - '13306:3306'
+volumes:
+  mysql_data:
