@@ -18,7 +18,7 @@ func main() {
 
 	for _, c := range d.Columns("test") {
 		bc := mapping.ToBigQueryColumn(datasource.SourceMySQL, c)
-		fmt.Printf("%v\t%v\n", bc.Name, bc.ColumnType)
+		fmt.Printf("%v\t%v\n", bc.Name, bc.DataType)
 	}
 }
 

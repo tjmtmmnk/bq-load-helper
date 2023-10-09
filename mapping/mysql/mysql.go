@@ -1,37 +1,39 @@
 package mapping
 
 import (
-	bqType "github.com/tjmtmmnk/mybig/mapping/bigquery"
+	bq "github.com/tjmtmmnk/mybig/mapping/bigquery"
 	"github.com/tjmtmmnk/mybig/schema"
 )
 
-type ColumnType string
+type DataType string
 
 const (
-	Bit            ColumnType = "bit"
-	TinyInt        ColumnType = "tinyint"
-	Bool           ColumnType = "bool"
-	Varchar        ColumnType = "varchar"
-	BigInt         ColumnType = "bigint"
-	BigIntUnsigned ColumnType = "bigint unsigned"
+	Bit            DataType = "bit"
+	TinyInt        DataType = "tinyint"
+	Bool           DataType = "bool"
+	Varchar        DataType = "varchar"
+	BigInt         DataType = "bigint"
+	BigIntUnsigned DataType = "bigint unsigned"
 )
 
-func ToBigQueryColumn(c schema.Column) bqType.Column {
-	var columnType bqType.ColumnType
+func ToBigQueryColumn(c schema.Column) bq.Column {
+	var dataType bq.DataType
 
-	switch ColumnType(c.ColumnType) {
+	switch DataType(c.DataType) {
 	case TinyInt:
-		columnType = bqType.Int64
+		dataType = bq.Int64
 	case Varchar:
-		columnType = bqType.String
+		dataType = bq.String
 	case BigInt:
-		columnType = bqType.Int64
-	case BigIntUnsigned:
-		columnType = bqType.Numeric
+		if c.Signed {
+			dataType = bq.Int64
+		} else {
+			dataType = bq.Numeric
+		}
 	}
 
-	return bqType.Column{
+	return bq.Column{
 		Name:       c.Name,
-		ColumnType: columnType,
+		DataType: dataType,
 	}
 }

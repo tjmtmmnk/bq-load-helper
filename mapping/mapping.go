@@ -2,14 +2,14 @@ package mapping
 
 import (
 	"github.com/tjmtmmnk/mybig/datasource"
-	bqType "github.com/tjmtmmnk/mybig/mapping/bigquery"
-	myType "github.com/tjmtmmnk/mybig/mapping/mysql"
+	bq "github.com/tjmtmmnk/mybig/mapping/bigquery"
+	ms "github.com/tjmtmmnk/mybig/mapping/mysql"
 	"github.com/tjmtmmnk/mybig/schema"
 )
 
-func ToBigQueryColumn(sourceType datasource.SourceType, c schema.Column) bqType.Column {
+func ToBigQueryColumn(sourceType datasource.SourceType, c schema.Column) bq.Column {
 	if sourceType == datasource.SourceMySQL {
-		return myType.ToBigQueryColumn(c)
+		return ms.ToBigQueryColumn(c)
 	}
-	return bqType.Column{}
+	return bq.Column{}
 }

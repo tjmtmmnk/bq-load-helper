@@ -14,6 +14,7 @@ type MySQL struct {
 
 type Column struct {
 	Name       string `db:"COLUMN_NAME"`
+	DataType   string `db:"DATA_TYPE"`
 	ColumnType string `db:"COLUMN_TYPE"`
 }
 
@@ -45,18 +46,19 @@ func NewMySQL(config ConnectConfig) MySQL {
 
 func (m MySQL) Columns(tableName string) []schema.Column {
 	var mysqlColumns []Column
-	sql := fmt.Sprintf("select COLUMN_NAME, COLUMN_TYPE from INFORMATION_SCHEMA.COLUMNS where table_name = '%s'", tableName)
+	sql := fmt.Sprintf("select COLUMN_NAME, DATA_TYPE, COLUMN_TYPE from INFORMATION_SCHEMA.COLUMNS where table_name = '%s'", tableName)
 	err := m.db.Select(&mysqlColumns, sql)
 	if err != nil {
 		panic(err)
 	}
 	columns := make([]schema.Column, len(mysqlColumns))
+	unsignedRe := regexp.MustCompile(`unsigned`)
 	for i, v := range mysqlColumns {
-		precisionRe := regexp.MustCompile(`\(\d+\)`)
-		columnTypeRemovedPrecision := precisionRe.ReplaceAllString(v.ColumnType, "")
+		unsigned := unsignedRe.MatchString(v.ColumnType)
 		columns[i] = schema.Column{
-			Name:       v.Name,
-			ColumnType: columnTypeRemovedPrecision,
+			Name:     v.Name,
+			DataType: v.DataType,
+			Signed:   !unsigned,
 		}
 	}
 
