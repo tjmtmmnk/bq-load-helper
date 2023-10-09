@@ -44,6 +44,59 @@ func NewMySQL(config ConnectConfig) MySQL {
 	}
 }
 
+func (m MySQL) Type() SourceType {
+	return SourceMySQL
+}
+
+func (m MySQL) Query(tableName string) [][]string {
+	query := fmt.Sprintf("SELECT * FROM %s", tableName)
+	rows, err := m.db.Query(query)
+	if err != nil {
+		return nil
+	}
+	defer rows.Close()
+
+	columns, err := rows.Columns()
+	if err != nil {
+		return nil
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil
+	}
+
+	var results [][]string
+
+	for rows.Next() {
+		values := make([]interface{}, len(columns))
+		pointers := make([]interface{}, len(columns))
+
+		for i := range values {
+			pointers[i] = &values[i]
+		}
+
+		if err := rows.Scan(pointers...); err != nil {
+			return nil
+		}
+
+		stringValues := make([]string, len(columns))
+		for i, v := range values {
+			switch data := v.(type) {
+			case []byte:
+				stringValues[i] = string(data)
+			case string:
+				stringValues[i] = data
+			default:
+				stringValues[i] = fmt.Sprint(data)
+			}
+		}
+
+		results = append(results, stringValues)
+	}
+
+	return results
+}
+
 func (m MySQL) Columns(tableName string) []schema.Column {
 	var mysqlColumns []Column
 	sql := fmt.Sprintf("select COLUMN_NAME, DATA_TYPE, COLUMN_TYPE from INFORMATION_SCHEMA.COLUMNS where table_name = '%s'", tableName)

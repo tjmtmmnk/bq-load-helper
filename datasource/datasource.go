@@ -18,6 +18,8 @@ type ConnectConfig struct {
 
 type DataSource interface {
 	Columns(tableName string) []schema.Column
+	Query(tableName string) [][]string
+	Type() SourceType
 }
 
 func New(sourceType SourceType, config ConnectConfig) DataSource {

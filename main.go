@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/tjmtmmnk/mybig/datasource"
-	"github.com/tjmtmmnk/mybig/mapping"
+	"github.com/tjmtmmnk/mybig/output"
 )
 
 func main() {
@@ -14,13 +14,10 @@ func main() {
 		User:     "root",
 		Password: "",
 	}
-	d := datasource.New(datasource.SourceMySQL, config)
-
-	for _, c := range d.Columns("test") {
-		//fmt.Printf("%v\t%v\n", c.Name, c.DataType)
-		bc := mapping.ToBigQueryColumn(datasource.SourceMySQL, c)
-		fmt.Printf("%v\t%v\n", bc.Name, bc.DataType)
-	}
+	source := datasource.New(datasource.SourceMySQL, config)
+	f := output.Format(source, "test")
+	fmt.Println(f.Schema)
+	fmt.Println(f.Data)
 }
 
 /*

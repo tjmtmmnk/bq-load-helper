@@ -1,7 +1,7 @@
 package schema
 
 type Column struct {
-	Name       string
+	Name     string
 	DataType string
-	Signed     bool
+	Signed   bool
 }
