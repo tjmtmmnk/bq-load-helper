@@ -1,14 +1,15 @@
 package bigquery
 
-type DataType string
+type ColumnType string
 
 const (
-	Bool   DataType = "bool"
-	String DataType = "string"
-	Int64  DataType = "int64"
+	Bool    ColumnType = "bool"
+	String  ColumnType = "string"
+	Int64   ColumnType = "int64"
+	Numeric ColumnType = "numeric"
 )
 
 type Column struct {
-	Name     string
-	DataType DataType
+	Name       string
+	ColumnType ColumnType
 }

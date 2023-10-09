@@ -5,31 +5,33 @@ import (
 	"github.com/tjmtmmnk/mybig/schema"
 )
 
-type DataType string
+type ColumnType string
 
 const (
-	Bit     DataType = "bit"
-	TinyInt DataType = "tinyint"
-	Bool    DataType = "bool"
-	Varchar DataType = "varchar"
-	BigInt  DataType = "bigint"
+	Bit            ColumnType = "bit"
+	TinyInt        ColumnType = "tinyint"
+	Bool           ColumnType = "bool"
+	Varchar        ColumnType = "varchar"
+	BigInt         ColumnType = "bigint"
+	BigIntUnsigned ColumnType = "bigint unsigned"
 )
 
 func ToBigQueryColumn(c schema.Column) bqType.Column {
-	var dataType bqType.DataType
+	var columnType bqType.ColumnType
 
-	columnDataType := DataType(c.DataType)
-	switch columnDataType {
+	switch ColumnType(c.ColumnType) {
 	case TinyInt:
-		dataType = bqType.Int64
+		columnType = bqType.Int64
 	case Varchar:
-		dataType = bqType.String
+		columnType = bqType.String
 	case BigInt:
-		dataType = bqType.Int64
+		columnType = bqType.Int64
+	case BigIntUnsigned:
+		columnType = bqType.Numeric
 	}
 
 	return bqType.Column{
-		Name:     c.Name,
-		DataType: dataType,
+		Name:       c.Name,
+		ColumnType: columnType,
 	}
 }
