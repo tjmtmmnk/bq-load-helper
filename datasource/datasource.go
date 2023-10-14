@@ -1,6 +1,6 @@
 package datasource
 
-import "github.com/tjmtmmnk/mybig/schema"
+import "github.com/tjmtmmnk/bq-load-helper/schema"
 
 type SourceType string
 

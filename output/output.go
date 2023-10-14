@@ -1,8 +1,8 @@
 package output
 
 import (
-	"github.com/tjmtmmnk/mybig/datasource"
-	"github.com/tjmtmmnk/mybig/mapping"
+	"github.com/tjmtmmnk/bq-load-helper/datasource"
+	"github.com/tjmtmmnk/bq-load-helper/mapping"
 	"strings"
 )
 

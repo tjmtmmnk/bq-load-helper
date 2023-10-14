@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	bq "github.com/tjmtmmnk/mybig/mapping/bigquery"
-	"github.com/tjmtmmnk/mybig/schema"
+	bq "github.com/tjmtmmnk/bq-load-helper/mapping/bigquery"
+	"github.com/tjmtmmnk/bq-load-helper/schema"
 )
 
 type DataType string

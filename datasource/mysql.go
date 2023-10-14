@@ -4,7 +4,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"github.com/tjmtmmnk/mybig/schema"
+	"github.com/tjmtmmnk/bq-load-helper/schema"
 	"regexp"
 )
 

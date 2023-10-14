@@ -1,10 +1,10 @@
 package mapping
 
 import (
-	"github.com/tjmtmmnk/mybig/datasource"
-	bq "github.com/tjmtmmnk/mybig/mapping/bigquery"
-	ms "github.com/tjmtmmnk/mybig/mapping/mysql"
-	"github.com/tjmtmmnk/mybig/schema"
+	"github.com/tjmtmmnk/bq-load-helper/datasource"
+	bq "github.com/tjmtmmnk/bq-load-helper/mapping/bigquery"
+	ms "github.com/tjmtmmnk/bq-load-helper/mapping/mysql"
+	"github.com/tjmtmmnk/bq-load-helper/schema"
 )
 
 func ToBigQueryColumn(sourceType datasource.SourceType, c schema.Column) bq.Column {

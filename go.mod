@@ -1,4 +1,4 @@
-module github.com/tjmtmmnk/mybig
+module github.com/tjmtmmnk/bq-load-helper
 
 go 1.21.0
 

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/tjmtmmnk/mybig/datasource"
-	"github.com/tjmtmmnk/mybig/output"
+	"github.com/tjmtmmnk/bq-load-helper/datasource"
+	"github.com/tjmtmmnk/bq-load-helper/output"
 )
 
 func main() {
