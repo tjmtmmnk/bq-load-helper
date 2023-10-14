@@ -1,4 +1,4 @@
-package mapping
+package mysql
 
 import (
 	bq "github.com/tjmtmmnk/mybig/mapping/bigquery"
