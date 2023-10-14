@@ -24,7 +24,6 @@ func Format(source datasource.DataSource, tableName string) BqLoadFormat {
 	for i, row := range rows {
 		dataRows[i] = strings.Join(row, ",")
 	}
-	//dataRows := make([]string, len(rows))
 	return BqLoadFormat{
 		Schema: strings.Join(schemaRows, ","),
 		Data:   strings.Join(dataRows, "\n"),
